@@ -2,21 +2,31 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
+
+    <!-- 父依赖，最基本的依赖库 -->
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
         <version>3.1.0</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
+
+    <!--  自己项目的一些包参数  -->
     <groupId>lufeijun.study</groupId>
     <artifactId>springboot-demo</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>springboot-demo</name>
     <description>springboot-demo</description>
+
+    <!--  各个包的版本信息  -->
     <properties>
         <java.version>20</java.version>
     </properties>
+
+
+    <!--  辅助依赖包信息  -->
     <dependencies>
+        <!--   带 starter 的包，称为场景启动器，类似一个开关门，引入后会自动导入相关的一系列包   -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
@@ -29,6 +39,7 @@
         </dependency>
     </dependencies>
 
+    <!-- 打包应用用到的一些依赖   -->
     <build>
         <plugins>
             <plugin>

@@ -1,5 +1,6 @@
 package lufeijun.study.springbootdemo.controller;
 
+import lufeijun.study.springbootdemo.beans.config.Person;
 import lufeijun.study.springbootdemo.beans.tool.JpHelper;
 import lufeijun.study.springbootdemo.beans.tool.SpringContextUtil;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -36,6 +37,15 @@ public class IndexController {
 		str = "两个类是否相等==" + jpHelper1.equals(jpHelper2);
 
 		return str;
+	}
+
+	@RequestMapping("env")
+	public Person env() {
+		Person person = SpringContextUtil.getBean(Person.class);
+		System.out.println( person );
+		System.out.println( "憨直" );
+
+		return person;
 	}
 
 }
