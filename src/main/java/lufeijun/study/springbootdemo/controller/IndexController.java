@@ -1,18 +1,35 @@
 package lufeijun.study.springbootdemo.controller;
 
+import jakarta.servlet.http.HttpServletRequest;
 import lufeijun.study.springbootdemo.beans.config.Person;
 import lufeijun.study.springbootdemo.beans.tool.JpHelper;
 import lufeijun.study.springbootdemo.beans.tool.SpringContextUtil;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.HashMap;
+import java.util.Map;
 
 @RestController
 public class IndexController {
 
 	@RequestMapping("/")
 	public String index() {
-		return  "hello world, 打开新世界";
+		return  "hello world, 打开新世界 java";
 	}
+
+	@RequestMapping("/a*/b?/{p1:[a-f]+}")
+	public Map<String, String> hello(HttpServletRequest request , @PathVariable("p1") String path) {
+		String uri = request.getRequestURI();
+
+		Map<String,String> res = new HashMap<String,String>();
+		res.put("path",path);
+		res.put("uri", uri);
+
+		return res;
+	}
+
 
 	@RequestMapping("/json")
 	public Result json() {
@@ -47,6 +64,15 @@ public class IndexController {
 
 		return person;
 	}
+
+
+	@RequestMapping("my-err")
+	public String error1(HttpServletRequest request) {
+
+
+		return "error";
+	}
+
 
 }
 
