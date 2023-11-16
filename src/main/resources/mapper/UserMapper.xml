@@ -1,9 +1,49 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="lufeijun.study.springbootdemo.mapper.UserMapper">
-    <select id="getUserById" resultType="lufeijun.study.springbootdemo.model.User">
-        select *
-        from user
-        where id = #{id}
-    </select>
+<mapper namespace="lufeijun.springboot.study.mapper.UserMapper">
+
+  <insert id="save" parameterType="lufeijun.springboot.study.entity.User" useGeneratedKeys="true"  keyProperty="user.id">
+    INSERT INTO `user` (`name`,`password`,`age`,`email`,`created`,`updated`)
+    VALUES
+      (#{user.name}, #{user.password}, #{user.age},#{user.email},#{user.created},#{user.updated});
+  </insert>
+
+  <!-- 对应关系，用来平衡 sql 字段和 Java 字段 -->
+  <resultMap id="BaseResultMap" type="lufeijun.springboot.study.entity.User">
+    <id column="id" property="id" jdbcType="INTEGER"/>
+    <result column="name" property="name" jdbcType="VARCHAR"/>
+    <result column="password" property="password" jdbcType="INTEGER"/>
+    <result column="email" property="email" jdbcType="VARCHAR"/>
+    <result column="created" property="created" jdbcType="VARCHAR"/>
+    <result column="updated" property="updated" jdbcType="VARCHAR"/>
+  </resultMap>
+  <sql id="all">
+    id ,`name`,age,password,email,created,updated
+  </sql>
+
+  <select id="getById" parameterType="Long" resultType="lufeijun.springboot.study.entity.User" resultMap="BaseResultMap">
+    select
+    <include refid="all"/>
+    from user where id=#{id};
+  </select>
+
+  <update id="updateName" parameterType="java.util.Map">
+    update user set `name`=#{name} where id=#{id} limit 1
+  </update>
+
+  <select id="list" parameterType="java.util.Map">
+    select
+    <include refid="all"/>
+    from user
+    where id > 0
+    <if test="name!=null">
+      and  name = #{name}
+    </if>
+    <if test="age!=null">
+      and age = #{age}
+    </if>
+    order by id desc
+    limit #{startPos},#{pageSize};
+  </select>
+
 </mapper>
