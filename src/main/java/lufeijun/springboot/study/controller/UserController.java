@@ -28,6 +28,7 @@ public class UserController {
 
   @GetMapping("save")
   public Integer save() {
+
     User user = new User();
     user.setName("测试");
     user.setAge(11);
