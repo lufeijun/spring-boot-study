@@ -16,9 +16,10 @@
     <result column="email" property="email" jdbcType="VARCHAR"/>
     <result column="created" property="created" jdbcType="VARCHAR"/>
     <result column="updated" property="updated" jdbcType="VARCHAR"/>
+    <result column="wechat_name" property="wechat_name" jdbcType="VARCHAR"/>
   </resultMap>
   <sql id="all">
-    id ,`name`,age,password,email,created,updated
+    id ,`name`,age,password,wechat_name,email,created,updated
   </sql>
 
   <select id="getById" parameterType="Long" resultType="lufeijun.springboot.study.entity.User" resultMap="BaseResultMap">
@@ -31,7 +32,7 @@
     update user set `name`=#{name} where id=#{id} limit 1
   </update>
 
-  <select id="list" parameterType="java.util.Map">
+  <select id="list" parameterType="java.util.Map" resultMap="BaseResultMap">
     select
     <include refid="all"/>
     from user
@@ -45,5 +46,11 @@
     order by id desc
     limit #{startPos},#{pageSize};
   </select>
+
+
+  <select id="pagelist" parameterType="java.util.Map" resultMap="BaseResultMap">
+    select * from user order by id desc
+  </select>
+
 
 </mapper>

@@ -4,9 +4,17 @@ spring:
     url: jdbc:mysql://192.168.0.34:3306/spring-boot?useUnicode=true&characterEncoding=utf-8
     username: root
     password: 123456
+logging:
+  level:
+    com.zoctan.api.mapper : debug
 
 mybatis:
   mapper-locations: classpath:/mapper/*.xml
   configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
     map-underscore-to-camel-case: true
 
+pagehelper:
+  propertyName: propertyValue
+  reasonable: false
+  defaultCount: true

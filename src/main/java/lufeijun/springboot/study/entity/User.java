@@ -8,6 +8,8 @@ import lombok.ToString;
 public class User {
   private Long id;
   private String name;
+
+  private String wechat_name;
   private Integer age;
   private String email;
   private String password;

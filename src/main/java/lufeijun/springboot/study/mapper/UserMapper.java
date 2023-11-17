@@ -15,4 +15,6 @@ public interface UserMapper {
   int updateName(Long id, String name);
 
   List<User> list(Map<String, Object> map);
+
+  List<User> pagelist();
 }
