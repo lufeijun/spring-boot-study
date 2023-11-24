@@ -21,12 +21,12 @@ public class UserController {
   @GetMapping("/{id}")
   public User getUserById(@PathVariable Long id) {
     User user = userService.getUserById(id);
-    user.setName("修改了");
+//    user.setName("修改了");
     return user;
   }
 
   @GetMapping("save")
-  public Integer save() {
+  public Long save() {
     User user = new User();
     user.setName("测试");
     user.setAge(11);
@@ -39,7 +39,9 @@ public class UserController {
 
     System.out.println(user);
 
-    return  userService.save(user);
+    userService.save(user);
+
+    return user.getId();
   }
 
   @GetMapping("update")

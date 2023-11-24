@@ -1,5 +1,7 @@
 package lufeijun.springboot.study.controller;
 
+import lufeijun.springboot.study.service.HomeService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
@@ -9,12 +11,14 @@ import java.util.Map;
 @RestController
 public class HomeController {
 
+  @Autowired
+  private HomeService homeService;
+
   @GetMapping("/")
-  public Map<String,String> home() {
-    Map<String,String> map = new HashMap<String,String>();
-    map.put("status","0");
-    map.put("message","ok");
-    return map;
+  public String home() {
+
+    var s = homeService.sayHello();
+    return s;
   }
 
   @RequestMapping(value = "/post", method = {RequestMethod.POST})
