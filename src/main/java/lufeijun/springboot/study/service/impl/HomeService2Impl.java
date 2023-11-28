@@ -5,6 +5,9 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class HomeService2Impl extends HomeServiceImpl {
+
+  public String Name;
+
   @Override
   public String sayHello() {
     return "HomeServiceImpl2 hello world";
