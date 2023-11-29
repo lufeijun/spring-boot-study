@@ -4,6 +4,8 @@ import lufeijun.springboot.study.common.page.PageResult;
 import lufeijun.springboot.study.entity.User;
 import lufeijun.springboot.study.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.text.SimpleDateFormat;
@@ -24,6 +26,13 @@ public class UserController {
 //    user.setName("修改了");
     return user;
   }
+
+  @GetMapping("/entity/{id}")
+  public ResponseEntity<User> getUserById2(@PathVariable Long id) {
+    User user = userService.getUserById(id);
+    return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(user);
+  }
+
 
   @GetMapping("save")
   public Long save() {

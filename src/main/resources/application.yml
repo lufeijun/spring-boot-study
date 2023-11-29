@@ -18,3 +18,8 @@ pagehelper:
   propertyName: propertyValue
   reasonable: false
   defaultCount: true
+
+#server:
+#  tomcat:
+#    max-connections: 2
+#    accept-count: 1
