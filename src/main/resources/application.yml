@@ -23,3 +23,8 @@ pagehelper:
 #  tomcat:
 #    max-connections: 2
 #    accept-count: 1
+
+lufeijun:
+  name: 测试
+  email: lufeijun_1234@126.com
+  type: server
