@@ -7,8 +7,8 @@ spring:
   lifecycle:
     timeout-per-shutdown-phase: 60s
   mail:
-    host: smtp.126.com
-    username: lufeijun_1234@126.com
+    host: smtp.ooxx.com
+    username: ooxx@ooxx.com
     password: ooxx
     protocol: smtp
     port: 465
