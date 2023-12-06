@@ -38,5 +38,12 @@ public class AsyncController {
   }
 
 
+  @GetMapping("/completable-future")
+  public String TheCompletableFuture() {
+    asyncService.TheCompletableFuture();
+    return  "async CompletableFuture controller" + myTime.getCurrentDatetime();
+  }
+
+
 
 }

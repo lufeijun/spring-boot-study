@@ -7,4 +7,7 @@ public interface AsyncService {
   public void autowired();
 
   public void custom(int i);
+
+
+  public void TheCompletableFuture();
 }

@@ -8,6 +8,7 @@ import org.springframework.scheduling.annotation.Async;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 import org.springframework.stereotype.Service;
 
+import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.Executor;
 import java.util.concurrent.Future;
 
@@ -66,10 +67,76 @@ public class AsyncServiceImpl implements AsyncService {
       }
     };
 
-    Future<?> submit = asyncCustom.submit(runnable);
-    Future<?> submit1 = asyncCustomTwo.submit(runnable);
+//    Future<String> submit = asyncCustom.submit(runnable);
+//    Future<?> submit1 = asyncCustomTwo.submit(runnable);
 //    Future<?> submit2 = threadPoolTaskExecutor.submit(runnable);
+    Future<String> submit = asyncCustom.submit(() -> {
+      test(111);
+      return "OK";
+    });
 
   }
+
+  @Override
+  public void TheCompletableFuture() {
+
+    myTime.ShowSysLogDatetime("TheCompletableFuture start");
+
+    // completableFutureOne();
+    completableFutureTwo();
+
+    myTime.ShowSysLogDatetime("TheCompletableFuture end");
+  }
+
+  private void completableFutureOne() {
+    // 创建异步任务
+    CompletableFuture<String> objectCompletableFuture5 = CompletableFuture.supplyAsync(()->{
+      try {
+        Thread.sleep(5000);
+        return "ok";
+      } catch (InterruptedException e) {
+        return "no";
+      }
+    });
+
+    // 调用异步任务
+    objectCompletableFuture5.thenAccept(result -> {
+      // 处理异步任务的结果
+      myTime.ShowSysLogDatetime("TheCompletableFuture 异步");
+      System.out.println(result);
+    });
+  }
+
+  private void completableFutureTwo(){
+    CompletableFuture<String> cp1 = CompletableFuture.supplyAsync(()->{
+      try {
+        Thread.sleep(5000);
+        myTime.ShowSysLogDatetime("cp1 5s 异步");
+        return "cp1 yes";
+      } catch (InterruptedException e) {
+        return "cp1 no";
+      }
+    });
+
+    CompletableFuture<String> cp2 = CompletableFuture.supplyAsync(()->{
+      try {
+        Thread.sleep(10000);
+        myTime.ShowSysLogDatetime("cp2 10s 异步");
+        return "cp2 yes";
+      } catch (InterruptedException e) {
+        return "cp2 no";
+      }
+    });
+
+    try {
+      String s1 = cp1.get();
+      String s2 = cp2.get();
+      myTime.ShowSysLogDatetime("cp1 和 cp2 完成：" + s1 + "===" + s2);
+    } catch (Exception e) {
+      System.out.println("completableFutureTwo 异步失败");
+    }
+
+  }
+
 
 }

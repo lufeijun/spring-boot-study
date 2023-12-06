@@ -4,9 +4,29 @@ spring:
     url: jdbc:mysql://192.168.0.34:3306/spring-boot?useUnicode=true&characterEncoding=utf-8
     username: root
     password: 123456
+  lifecycle:
+    timeout-per-shutdown-phase: 60s
+  mail:
+    host: smtp.126.com
+    username: lufeijun_1234@126.com
+    password: ooxx
+    protocol: smtp
+    port: 465
+    default-encoding: UTF-8
+    from: java-spring-boot
+    properties:
+      mail:
+        smtp:
+          ssl:
+            enable: true
+          auth: true
+          timeout: 6000
+          connectiontimeout: 6000
+
 logging:
   level:
     com.zoctan.api.mapper : debug
+
 
 mybatis:
   mapper-locations: classpath:/mapper/*.xml
@@ -20,6 +40,7 @@ pagehelper:
   defaultCount: true
 
 #server:
+#  shutdown: graceful # 设置优雅关闭 Kill -2
 #  tomcat:
 #    max-connections: 2
 #    accept-count: 1

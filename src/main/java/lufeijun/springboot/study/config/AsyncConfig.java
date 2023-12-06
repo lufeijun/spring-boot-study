@@ -36,6 +36,10 @@ public class AsyncConfig {
     // 允许线程空闲时间
     executor.setKeepAliveSeconds(300);
 
+
+    executor.setWaitForTasksToCompleteOnShutdown(true);
+    executor.setAwaitTerminationSeconds(60);
+
     // 拒绝处理策略
 //    executor.setRejectedExecutionHandler(new ThreadPoolExecutor.CallerRunsPolicy());
     executor.setRejectedExecutionHandler(new ThreadPoolExecutor.AbortPolicy());
@@ -68,6 +72,10 @@ public class AsyncConfig {
 
     // 允许线程空闲时间
     executor.setKeepAliveSeconds(300);
+
+    // 等待任务执行完成再重启
+    executor.setWaitForTasksToCompleteOnShutdown(true);
+    executor.setAwaitTerminationSeconds(60);
 
     // 拒绝处理策略
 //    executor.setRejectedExecutionHandler(new ThreadPoolExecutor.CallerRunsPolicy());

@@ -1,6 +1,6 @@
 package lufeijun.springboot.study.controller;
 
-import lufeijun.springboot.study.exception.MyError;
+import lufeijun.springboot.study.common.email.MyEmail;
 import lufeijun.springboot.study.exception.MyRuntimeException;
 import lufeijun.springboot.study.service.HomeService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +12,9 @@ public class HomeController {
 
   @Autowired
   private HomeService homeService;
+
+  @Autowired
+  private MyEmail myEmail;
 
   @GetMapping("/")
   public String home() {
@@ -41,7 +44,7 @@ public class HomeController {
 
   @GetMapping("/sleep")
   public String sleep() throws Exception{
-    Thread.sleep(1000 * 60);
+    Thread.sleep(1000 * 50);
     return "ok";
   }
 
@@ -59,5 +62,15 @@ public class HomeController {
   }
 
 
+  // 发送邮件
+  @GetMapping("/mail")
+  public String mail() {
+    myEmail.sendSimpleMail(
+      "lufeijun_1234@126.com",
+      "测试",
+      "具体内容"
+    );
+    return "mail";
+  }
 
 }

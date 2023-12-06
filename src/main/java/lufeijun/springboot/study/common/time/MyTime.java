@@ -11,4 +11,9 @@ public class MyTime {
     return sdf.format(date);
   }
 
+
+  public void ShowSysLogDatetime(String name) {
+    System.out.println( name + "===" + getCurrentDatetime() );
+  }
+
 }
