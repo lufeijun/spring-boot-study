@@ -41,6 +41,10 @@ public class MyEmail {
     Future<?> submit = asyncCustom.submit(runnable);
   }
 
+  /**
+   * 备注：
+   *  1、126 邮箱的话，from 必须和 username 一致
+   */
   private void _sendSimpleMail(String to, String subject, String content) {
 
     System.out.println("===========sendSimpleMail start==============");
