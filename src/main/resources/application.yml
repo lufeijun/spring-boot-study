@@ -1,0 +1,23 @@
+spring:
+  application:
+    name: study
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://192.168.0.34:3306/spring-boot?useSSL=false&serverTimezone=UTC
+#    driver-class-name: com.p6spy.engine.spy.P6SpyDriver # ???? p6spy-spring-boot-starter ????????
+#    url: jdbc:p6spy:mysql://192.168.0.34:3306/spring-boot?useSSL=false&serverTimezone=UTC
+    username: root
+    password: 123456
+decorator:
+  datasource:
+    p6spy:
+      logging: file
+      log-file: ./logs/spy.log
+#      log-file-path: /Users/houyadong/Documents/lufeijun1234/java/study/logs/
+#      log-file-charset: UTF-8
+#      log-file-append: true
+#      log-format: com.p6spy.engine.spy.appender.SingleLineFormat
+#      execution-time: true
+#      log-sql-params: true
+      enable-logging: true
+      log-format: executionTime:%(executionTime) | sql:%(sqlSingleLine)
