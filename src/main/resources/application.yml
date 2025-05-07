@@ -1,0 +1,17 @@
+#spring.application.name=demo01
+spring:
+  application:
+    name: demo01
+  ai:
+    ollama:
+      base-url: http://192.168.0.68:11434
+      chat:
+        model: deepseek-r1:7b  # ????????
+#    openai:
+#      base-url: https://api.deepseek.com
+#      api-key: sk-********
+#      chat:
+#        options:
+#          model: deepseek-chat
+
+
