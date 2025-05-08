@@ -1,10 +1,10 @@
 package com.lufeijun.cloud.order.controller;
 
-import ch.qos.logback.core.testUtil.RandomUtil;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.cloud.client.ServiceInstance;
 import org.springframework.cloud.client.discovery.DiscoveryClient;
-import org.springframework.cloud.client.loadbalancer.LoadBalanced;
+import org.springframework.cloud.client.loadbalancer.LoadBalancerClient;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -23,7 +23,14 @@ public class IndexController {
     private RestTemplate restTemplate;
 
     @Autowired
+    @Qualifier("RestTemplateLoadBalanced")
+    private RestTemplate restTemplateLoadBalanced;
+
+    @Autowired
     private DiscoveryClient discoveryClient;
+
+    @Autowired
+    private LoadBalancerClient loadBalancerClient;
 
     @GetMapping("/info")
     public String info(){
@@ -34,11 +41,15 @@ public class IndexController {
     @GetMapping("/to/user")
     public String toUser(){
         toUser1();
+        toUser2();
+        toUser3();
 
         return "to user....";
     }
 
     private void toUser1(){
+        System.out.println("toUser1");
+
         // 1、获取所有实例
         List<ServiceInstance> instances = discoveryClient.getInstances("service-user");
 
@@ -50,11 +61,58 @@ public class IndexController {
         // 3、拼接url
         String url = instance.getUri() + "/api/user/info";
 
+        System.out.println( url );
+
         ResponseEntity<String> response = restTemplate.exchange(
-            instance.getUri() + "/api/user/info",
+                url,
             HttpMethod.GET,
             null,
             String.class
+        );
+
+        // 4、处理请求结果
+        if ( response.getStatusCode().is2xxSuccessful() ) {
+            System.out.println(response.getBody());
+        } else {
+            System.out.println("请求失败");
+        }
+    }
+
+    private void toUser2(){
+        System.out.println("toUser2");
+
+        // 1、随机获取实例
+        ServiceInstance choose = loadBalancerClient.choose("service-user");
+
+        // 3、拼接url
+        String url = choose.getUri() + "/api/user/info";
+
+        ResponseEntity<String> response = restTemplate.exchange(
+                url,
+                HttpMethod.GET,
+                null,
+                String.class
+        );
+
+        // 4、处理请求结果
+        if ( response.getStatusCode().is2xxSuccessful() ) {
+            System.out.println(response.getBody());
+        } else {
+            System.out.println("请求失败");
+        }
+    }
+
+    private void toUser3(){
+        System.out.println("toUser3");
+
+        // 3、拼接url
+        String url =  "http://service-user/api/user/info";
+
+        ResponseEntity<String> response = restTemplateLoadBalanced.exchange(
+                url,
+                HttpMethod.GET,
+                null,
+                String.class
         );
 
         // 4、处理请求结果
