@@ -1,10 +1,14 @@
 package com.lufeijun.cloud.order.controller;
 
+import com.lufeijun.cloud.common.reponse.ApiTResponse;
+import com.lufeijun.cloud.order.feign.UserFeign;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cloud.client.ServiceInstance;
 import org.springframework.cloud.client.discovery.DiscoveryClient;
 import org.springframework.cloud.client.loadbalancer.LoadBalancerClient;
+import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -19,6 +23,9 @@ import java.util.Random;
 @RequestMapping("/api/order")
 public class IndexController {
 
+    @Value("${server.port}")
+    private String serverPort;
+
     @Autowired
     private RestTemplate restTemplate;
 
@@ -32,18 +39,23 @@ public class IndexController {
     @Autowired
     private LoadBalancerClient loadBalancerClient;
 
+    @Autowired
+    private UserFeign userFeign;
+
     @GetMapping("/info")
-    public String info(){
-        return "order success....";
+    public ApiTResponse<String> info(){
+        ApiTResponse<String> response = new ApiTResponse<String>();
+        response.setValues("user success...." + serverPort);
+        return response;
     }
 
 
     @GetMapping("/to/user")
     public String toUser(){
-        toUser1();
-        toUser2();
-        toUser3();
-
+        // toUser1();
+        // toUser2();
+        // toUser3();
+         toUser4();
         return "to user....";
     }
 
@@ -63,11 +75,11 @@ public class IndexController {
 
         System.out.println( url );
 
-        ResponseEntity<String> response = restTemplate.exchange(
+        ResponseEntity<ApiTResponse<String>> response = restTemplate.exchange(
                 url,
             HttpMethod.GET,
             null,
-            String.class
+            new ParameterizedTypeReference<ApiTResponse<String>>() {}
         );
 
         // 4、处理请求结果
@@ -87,11 +99,11 @@ public class IndexController {
         // 3、拼接url
         String url = choose.getUri() + "/api/user/info";
 
-        ResponseEntity<String> response = restTemplate.exchange(
+        ResponseEntity<ApiTResponse<String>> response = restTemplate.exchange(
                 url,
                 HttpMethod.GET,
                 null,
-                String.class
+                new ParameterizedTypeReference<ApiTResponse<String>>() {}
         );
 
         // 4、处理请求结果
@@ -108,11 +120,11 @@ public class IndexController {
         // 3、拼接url
         String url =  "http://service-user/api/user/info";
 
-        ResponseEntity<String> response = restTemplateLoadBalanced.exchange(
+        ResponseEntity<ApiTResponse<String>> response = restTemplateLoadBalanced.exchange(
                 url,
                 HttpMethod.GET,
                 null,
-                String.class
+                new ParameterizedTypeReference<ApiTResponse<String>>() {}
         );
 
         // 4、处理请求结果
@@ -121,5 +133,12 @@ public class IndexController {
         } else {
             System.out.println("请求失败");
         }
+    }
+
+
+    private void toUser4(){
+        System.out.println("toUser4");
+        ApiTResponse<String> info = userFeign.info();
+        System.out.println(info);
     }
 }

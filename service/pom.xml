@@ -22,6 +22,12 @@
     </properties>
 
     <dependencies>
+        <dependency>
+            <groupId>com.lufeijun.cloud</groupId>
+            <artifactId>common</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+        </dependency>
+
         <!-- 分布式事务 -->
 <!--        <dependency>-->
 <!--            <groupId>com.alibaba.cloud</groupId>-->
