@@ -2,6 +2,7 @@ package com.lufeijun.cloud.order.controller;
 
 import com.lufeijun.cloud.common.reponse.ApiTResponse;
 import com.lufeijun.cloud.order.feign.UserFeign;
+import feign.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Random;
 
@@ -55,7 +57,8 @@ public class IndexController {
         // toUser1();
         // toUser2();
         // toUser3();
-         toUser4();
+        // toUser4();
+        toUser5();
         return "to user....";
     }
 
@@ -140,5 +143,15 @@ public class IndexController {
         System.out.println("toUser4");
         ApiTResponse<String> info = userFeign.info();
         System.out.println(info);
+    }
+
+    private void toUser5() {
+        System.out.println("toUser5");
+        ResponseEntity<ApiTResponse<String>> response = userFeign.infoWithResponse();
+        System.out.println(response.getStatusCode());
+        System.out.println(response.getStatusCode().is2xxSuccessful());
+        System.out.println(response.getHeaders());
+        ApiTResponse<String> body = response.getBody();
+        System.out.println(body);
     }
 }
