@@ -16,6 +16,7 @@
     <modules>
         <module>service</module>
         <module>common</module>
+        <module>gateway</module>
     </modules>
     <packaging>pom</packaging>
     <properties>

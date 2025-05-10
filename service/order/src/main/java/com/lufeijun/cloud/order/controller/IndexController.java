@@ -54,11 +54,11 @@ public class IndexController {
 
     @GetMapping("/to/user")
     public String toUser(){
-        // toUser1();
+         toUser1();
         // toUser2();
         // toUser3();
         // toUser4();
-        toUser5();
+        // toUser5();
         return "to user....";
     }
 
@@ -66,7 +66,8 @@ public class IndexController {
         System.out.println("toUser1");
 
         // 1、获取所有实例
-        List<ServiceInstance> instances = discoveryClient.getInstances("service-user");
+//        List<ServiceInstance> instances = discoveryClient.getInstances("service-user");
+        List<ServiceInstance> instances = discoveryClient.getInstances("my-gateway");
 
         System.out.println("服务个数：" + instances.size());
 

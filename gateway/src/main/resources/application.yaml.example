@@ -1,0 +1,11 @@
+spring:
+  application:
+    name: my-gateway
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 192.168.69.132:8848
+        secret-key: ThisIsMyCustomSecretKey012345678
+
+server:
+  port: 8080
