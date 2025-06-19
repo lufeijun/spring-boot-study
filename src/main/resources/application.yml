@@ -1,17 +1,28 @@
-#spring.application.name=demo01
 spring:
   application:
     name: demo01
   ai:
-    ollama:
-      base-url: http://192.168.0.68:11434
-      chat:
-        model: deepseek-r1:7b  # ????????
-#    openai:
-#      base-url: https://api.deepseek.com
-#      api-key: sk-********
+#    ollama:
+#      base-url: http://127.0.0.1:11434
 #      chat:
-#        options:
-#          model: deepseek-chat
+#        model: deepseek-r1:7b  # ????????
+    openai:
+      base-url: http://127.0.0.1:11434
+      api-key: sk-whatever
+      chat:
+        options:
+          model: qwen3:1.7b # llama3.2:1b deepseek-r1:1.5b
+    chat:
+      memory:
+        repository:
+          jdbc:
+            initialize-schema: never
+  datasource:
+    url: jdbc:mysql://192.168.69.132:3306/spring-ai?useSSL=false&serverTimezone=UTC
+    username: root
+    password: 123456
+    driver-class-name: com.mysql.cj.jdbc.Driver
 
-
+#  # 自动创建表
+#  spring.sql.init.mode=always
+#  spring.jpa.hibernate.ddl-auto=update
