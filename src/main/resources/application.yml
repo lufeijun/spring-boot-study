@@ -9,6 +9,9 @@ spring:
     openai:
       base-url: http://127.0.0.1:11434
       api-key: sk-whatever
+      embedding:
+        options:
+          model: nomic-embed-text
       chat:
         options:
           model: qwen3:1.7b # llama3.2:1b deepseek-r1:1.5b

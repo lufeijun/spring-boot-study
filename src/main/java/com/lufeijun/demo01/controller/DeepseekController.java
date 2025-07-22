@@ -1,6 +1,7 @@
 package com.lufeijun.demo01.controller;
 
 import com.lufeijun.demo01.entry.Book;
+import com.lufeijun.demo01.service.AliJavaService;
 import org.springframework.ai.chat.client.ChatClient;
 import org.springframework.ai.chat.client.ResponseEntity;
 import org.springframework.ai.chat.memory.ChatMemory;
@@ -29,6 +30,8 @@ public class DeepseekController {
     @Autowired
     ChatMemory chatMemory;
 
+    @Autowired
+    AliJavaService aliJavaService;
 
     static List<Message> messages = new ArrayList<>();
 
@@ -125,4 +128,8 @@ public class DeepseekController {
         return content;
     }
 
+    @GetMapping("/rag")
+    public String rag(@RequestParam("question") String question) {
+        return aliJavaService.generateAnswer(question);
+    }
 }

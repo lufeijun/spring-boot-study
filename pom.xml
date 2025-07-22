@@ -60,6 +60,23 @@
             <version>9.3.0</version>
         </dependency>
 
+        <!-- PDF 处理 -->
+        <dependency>
+            <groupId>org.springframework.ai</groupId>
+            <artifactId>spring-ai-pdf-document-reader</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.ai</groupId>
+            <artifactId>spring-ai-vertex-ai-embedding</artifactId>
+        </dependency>
+
+        <!-- https://mvnrepository.com/artifact/org.springframework.ai/spring-ai-vector-store -->
+        <dependency>
+            <groupId>org.springframework.ai</groupId>
+            <artifactId>spring-ai-vector-store</artifactId>
+        </dependency>
+
         <!-- https://mvnrepository.com/artifact/org.projectlombok/lombok -->
         <dependency>
             <groupId>org.projectlombok</groupId>
